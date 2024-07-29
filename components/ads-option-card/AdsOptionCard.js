@@ -7,7 +7,7 @@ import {
 import { useFonts } from "expo-font"
 import PropTypes from "prop-types"
 
-export default function AdsOptionsCard({ image, title, description }) {
+export default function AdsOptionCard({ image, title, description }) {
 	const [fontsLoaded] = useFonts({
 		"Genos-Medium": require("../../assets/fonts/Genos/fonts/ttf/Genos-Medium.ttf"),
 		"Genos-Light": require("../../assets/fonts/Genos/fonts/ttf/Genos-Light.ttf")
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 	}
 })
 
-AdsOptionsCard.propTypes = {
+AdsOptionCard.propTypes = {
 	image: PropTypes.node.isRequired,
 	title: PropTypes.string.isRequired,
 	description: PropTypes.string.isRequired

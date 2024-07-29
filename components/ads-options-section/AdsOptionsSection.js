@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native"
 import { useFonts } from "expo-font"
-import AdsOptionsCard from "../ads-options-card/AdsOptionsCard"
+import AdsOptionCard from "../ads-option-card/AdsOptionCard"
 
 export default function AdsOptionsSection() {
 	const [fontsLoaded] = useFonts({
@@ -15,22 +15,22 @@ export default function AdsOptionsSection() {
 				</Text>
 			)}
 			<View style={styles.cardsContainer}>
-				<AdsOptionsCard
+				<AdsOptionCard
 					image={require("../../assets/images/business-cards.png")}
 					title="Business"
 					description="Cards"
 				/>
-				<AdsOptionsCard
+				<AdsOptionCard
 					image={require("../../assets/images/services-flyers.png")}
 					title="Services"
 					description="Flyers"
 				/>
-				<AdsOptionsCard
+				<AdsOptionCard
 					image={require("../../assets/images/restaurant-offers.png")}
 					title="Restaurant"
 					description="Offers"
 				/>
-				<AdsOptionsCard
+				<AdsOptionCard
 					image={require("../../assets/images/special-offers.png")}
 					title="Special"
 					description="Offers"

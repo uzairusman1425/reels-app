@@ -67,6 +67,7 @@ export default function Page() {
 					<ContentCard
 						image={item?.image}
 						isTrending={item?.isTrending}
+						href="/edit-content"
 					/>
 				)}
 				estimatedItemSize={200}
