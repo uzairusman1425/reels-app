@@ -1,27 +1,40 @@
 {
-  "expo": {
-    "name": "reels-app",
-    "slug": "reels-app",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
-  }
+	"expo": {
+		"name": "reels-app",
+		"slug": "reels-app",
+		"version": "1.0.0",
+		"scheme": "reels-app-scheme",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"userInterfaceStyle": "light",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"ios": {
+			"supportsTablet": true
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"permissions": [],
+			"package": "com.harisshaikh.reelsapp"
+		},
+		"web": {
+			"bundler": "metro",
+			"favicon": "./assets/favicon.png"
+		},
+		"plugins": ["expo-router"],
+		"extra": {
+			"router": {
+				"origin": false
+			},
+			"eas": {
+				"projectId": "b321c282-666e-4df6-a9e1-0192a1f2ec88"
+			}
+		}
+	}
 }
