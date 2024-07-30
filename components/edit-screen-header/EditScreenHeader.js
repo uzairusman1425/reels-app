@@ -1,7 +1,8 @@
 import { TouchableOpacity, View, StyleSheet } from "react-native"
 import { useRouter } from "expo-router"
 import { LinearGradient } from "expo-linear-gradient"
-import { FontAwesome5, Fontisto, Feather } from "@expo/vector-icons"
+import { Fontisto, Feather } from "@expo/vector-icons"
+import BackButton from "../back-button/BackButton"
 
 export default function EditScreenHeader() {
 	const router = useRouter()
@@ -11,14 +12,7 @@ export default function EditScreenHeader() {
 			style={styles.headerContainer}
 			colors={["rgba(0,0,0,1)", "rgba(0,0,0,0.85)"]}
 		>
-			<TouchableOpacity
-				style={styles.headerActionButton}
-				onPress={() => {
-					router?.back()
-				}}
-			>
-				<FontAwesome5 name="chevron-left" size={22.5} color="#1C274C" />
-			</TouchableOpacity>
+			<BackButton />
 			<View style={styles.resetButtonsContainer}>
 				<TouchableOpacity style={styles.headerActionButton}>
 					<Fontisto
@@ -35,7 +29,12 @@ export default function EditScreenHeader() {
 					/>
 				</TouchableOpacity>
 			</View>
-			<TouchableOpacity style={styles.headerActionButton}>
+			<TouchableOpacity
+				style={styles.headerActionButton}
+				onPress={() => {
+					router?.navigate("/preview")
+				}}
+			>
 				<Feather name="eye" size={22.5} color="#1C274C" />
 			</TouchableOpacity>
 		</LinearGradient>

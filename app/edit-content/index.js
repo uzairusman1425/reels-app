@@ -1,10 +1,4 @@
-import {
-	View,
-	ScrollView,
-	Text,
-	TouchableOpacity,
-	StyleSheet
-} from "react-native"
+import { View, StyleSheet } from "react-native"
 import { Image } from "expo-image"
 import EditScreenHeader from "../../components/edit-screen-header/EditScreenHeader"
 import EditScreenFooter from "../../components/edit-screen-footer/EditScreenFooter"
