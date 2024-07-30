@@ -3,13 +3,16 @@ import { Image } from "expo-image"
 import { useFonts } from "expo-font"
 import PropTypes from "prop-types"
 
-export default function EditOptionCard({ image, title }) {
+export default function EditOptionCard({ image, title, color, onPress }) {
 	const [fontsLoaded] = useFonts({
 		"Genos-Medium": require("../../assets/fonts/Genos/fonts/ttf/Genos-Medium.ttf")
 	})
 
 	return (
-		<TouchableOpacity style={styles.editOptionCard}>
+		<TouchableOpacity
+			style={[styles.editOptionCard, { backgroundColor: color }]}
+			onPress={onPress}
+		>
 			<Image source={image} style={styles.editOptionIcon} />
 			{fontsLoaded && <Text style={styles.editOptionText}>{title}</Text>}
 		</TouchableOpacity>
@@ -21,7 +24,6 @@ const styles = StyleSheet.create({
 		height: 65,
 		width: 65,
 		borderRadius: 10,
-		backgroundColor: "gray",
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
@@ -40,5 +42,7 @@ const styles = StyleSheet.create({
 
 EditOptionCard.propTypes = {
 	image: PropTypes.node.isRequired,
-	title: PropTypes.string.isRequired
+	title: PropTypes.string.isRequired,
+	color: PropTypes.string.isRequired,
+	onPress: PropTypes.func.isRequired
 }

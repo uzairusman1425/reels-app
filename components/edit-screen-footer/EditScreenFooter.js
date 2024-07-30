@@ -1,34 +1,12 @@
 import { View, ScrollView, StyleSheet } from "react-native"
+import PropTypes from "prop-types"
 import EditOptionCard from "../edit-option-card/EditOptionCard"
 
-export default function EditScreenFooter() {
-	const options = [
-		{
-			image: require("../../assets/icons/media.png"),
-			title: "Media"
-		},
-		{
-			image: require("../../assets/icons/music.png"),
-			title: "Music"
-		},
-		{
-			image: require("../../assets/icons/text.png"),
-			title: "Text"
-		},
-		{
-			image: require("../../assets/icons/effect.png"),
-			title: "Effect"
-		},
-		{
-			image: require("../../assets/icons/sticker.png"),
-			title: "Sticker"
-		},
-		{
-			image: require("../../assets/icons/backside.png"),
-			title: "Backside"
-		}
-	]
-
+export default function EditScreenFooter({
+	options,
+	setOpenModal,
+	setSelectedOption
+}) {
 	return (
 		<View style={styles.footerContainer}>
 			<ScrollView
@@ -42,6 +20,11 @@ export default function EditScreenFooter() {
 							<EditOptionCard
 								image={item?.image}
 								title={item?.title}
+								color="gray"
+								onPress={() => {
+									setSelectedOption(item)
+									setOpenModal(true)
+								}}
 								key={key}
 							/>
 						)
@@ -68,3 +51,9 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15
 	}
 })
+
+EditScreenFooter.propTypes = {
+	options: PropTypes.array.isRequired,
+	setOpenModal: PropTypes.func.isRequired,
+	setSelectedOption: PropTypes.func.isRequired
+}
