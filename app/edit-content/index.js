@@ -6,9 +6,6 @@ import EditScreenFooter from "../../components/edit-screen-footer/EditScreenFoot
 import EditContentModal from "../../components/edit-content-modal/EditContentModal"
 
 export default function Page() {
-	const [openModal, setOpenModal] = useState(false)
-	const [selectedOption, setSelectedOption] = useState()
-
 	const options = [
 		{
 			id: 1,
@@ -48,6 +45,55 @@ export default function Page() {
 		}
 	]
 
+	const musicCategories = [
+		{
+			id: 1,
+			title: "Pop"
+		},
+		{
+			id: 2,
+			title: "Rock"
+		},
+		{
+			id: 3,
+			title: "Hip Hop"
+		},
+		{
+			id: 4,
+			title: "Electronic"
+		},
+		{
+			id: 5,
+			title: "Country"
+		},
+		{
+			id: 6,
+			title: "Jazz"
+		},
+		{
+			id: 7,
+			title: "Classical"
+		},
+		{
+			id: 8,
+			title: "Folk"
+		},
+		{
+			id: 9,
+			title: "Reggae"
+		},
+		{
+			id: 10,
+			title: "Metal"
+		}
+	]
+
+	const [openModal, setOpenModal] = useState(false)
+	const [selectedOption, setSelectedOption] = useState()
+	const [selectedMusicCategory, setSelectedMusicCategory] = useState(
+		musicCategories[0]
+	)
+
 	return (
 		<View style={styles.container}>
 			<EditScreenHeader />
@@ -67,6 +113,9 @@ export default function Page() {
 				options={options}
 				selectedOption={selectedOption}
 				setSelectedOption={setSelectedOption}
+				musicCategories={musicCategories}
+				selectedMusicCategory={selectedMusicCategory}
+				setSelectedMusicCategory={setSelectedMusicCategory}
 			/>
 		</View>
 	)
