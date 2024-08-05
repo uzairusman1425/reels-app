@@ -16,21 +16,21 @@ export default function CreateContentSection() {
 			)}
 			<View style={styles.cardsContainer}>
 				<CreateContentCard
-					image={require("../../assets/icons/create-stories.png")}
+					image={require("../../assets/icons/create-stories.svg")}
 					salutation="Let's Create"
 					title="Create Stories"
 					description="Share your moments"
 					href="/create-stories"
 				/>
 				<CreateContentCard
-					image={require("../../assets/icons/create-reels.png")}
+					image={require("../../assets/icons/create-reels.svg")}
 					salutation="Let's Make"
 					title="Create Reels"
 					description="Capture short videos"
 					href="/create-reels"
 				/>
 				<CreateContentCard
-					image={require("../../assets/icons/create-ads.png")}
+					image={require("../../assets/icons/create-ads.svg")}
 					salutation="Let's Promote"
 					title="Create Ads"
 					description="Reach your audience"

@@ -16,22 +16,22 @@ export default function AdsOptionsSection() {
 			)}
 			<View style={styles.cardsContainer}>
 				<AdsOptionCard
-					image={require("../../assets/images/business-cards.png")}
+					image={require("../../assets/icons/business-cards.svg")}
 					title="Business"
 					description="Cards"
 				/>
 				<AdsOptionCard
-					image={require("../../assets/images/services-flyers.png")}
+					image={require("../../assets/icons/services-flyers.svg")}
 					title="Services"
 					description="Flyers"
 				/>
 				<AdsOptionCard
-					image={require("../../assets/images/restaurant-offers.png")}
+					image={require("../../assets/icons/restaurant-offers.svg")}
 					title="Restaurant"
 					description="Offers"
 				/>
 				<AdsOptionCard
-					image={require("../../assets/images/special-offers.png")}
+					image={require("../../assets/icons/special-offers.svg")}
 					title="Special"
 					description="Offers"
 				/>

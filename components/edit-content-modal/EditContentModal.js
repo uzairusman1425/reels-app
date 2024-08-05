@@ -153,7 +153,7 @@ export default function EditContentModal({
 													key={key}
 												>
 													<Image
-														source={require("../../assets/icons/music-category.png")}
+														source={require("../../assets/icons/music-category.svg")}
 														style={
 															styles.musicCategoryTabIcon
 														}
@@ -271,8 +271,8 @@ export default function EditContentModal({
 																source={
 																	selectedSong?.id ===
 																	item?.id
-																		? require("../../assets/icons/playing.png")
-																		: require("../../assets/icons/play.png")
+																		? require("../../assets/icons/playing.svg")
+																		: require("../../assets/icons/play.svg")
 																}
 																style={
 																	styles.songIcon

@@ -1,9 +1,5 @@
-import {
-	TouchableOpacity,
-	ImageBackground,
-	Text,
-	StyleSheet
-} from "react-native"
+import { TouchableOpacity, Text, StyleSheet } from "react-native"
+import { Image } from "expo-image"
 import { useFonts } from "expo-font"
 import PropTypes from "prop-types"
 
@@ -15,37 +11,34 @@ export default function AdsOptionCard({ image, title, description }) {
 
 	return (
 		<TouchableOpacity style={styles.adsOptionsCard}>
-			<ImageBackground
-				source={image}
-				style={styles.adsOptionCardBackgroundImage}
-				resizeMode="cover"
-			>
-				{fontsLoaded && (
-					<Text style={styles.adsOptionsCardTitleText}>{title}</Text>
-				)}
-				{fontsLoaded && (
-					<Text style={styles.adsOptionsCardDescriptionText}>
-						{description}
-					</Text>
-				)}
-			</ImageBackground>
+			<Image source={image} style={styles.adsOptionsCardIconImage} />
+			{fontsLoaded && (
+				<Text style={styles.adsOptionsCardTitleText}>{title}</Text>
+			)}
+			{fontsLoaded && (
+				<Text style={styles.adsOptionsCardDescriptionText}>
+					{description}
+				</Text>
+			)}
 		</TouchableOpacity>
 	)
 }
 
 const styles = StyleSheet.create({
 	adsOptionsCard: {
-		width: "23.5%"
-	},
-	adsOptionCardBackgroundImage: {
-		height: 100,
-		width: "100%",
+		height: 90,
+		width: "23.5%",
 		borderRadius: 7.5,
-		paddingVertical: 5,
-		flexDirection: "column",
+		backgroundColor: "rgba(255, 255, 255, 0.75)",
+		paddingVertical: 7.5,
 		alignItems: "center",
-		justifyContent: "flex-end",
-		overflow: "hidden"
+		flexDirection: "column",
+		justifyContent: "space-between"
+	},
+	adsOptionsCardIconImage: {
+		height: 40,
+		width: 40,
+		alignSelf: "center"
 	},
 	adsOptionsCardTitleText: {
 		fontSize: 15,

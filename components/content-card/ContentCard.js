@@ -37,7 +37,7 @@ export default function ContentCard({ image, isTrending, href }) {
 				{isTrending && (
 					<View style={styles.trendingMarker}>
 						<Image
-							source={require("../../assets/icons/trending.png")}
+							source={require("../../assets/icons/trending.svg")}
 							style={styles.trendingMarkerIcon}
 							contentFit="contain"
 						/>

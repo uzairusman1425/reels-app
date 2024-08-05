@@ -58,7 +58,7 @@ export default function Page() {
 	return (
 		<View style={styles.container}>
 			<GallerySectionHeader
-				image={require("../../assets/icons/create-reels.png")}
+				image={require("../../assets/icons/create-stories.svg")}
 				title="Create Stories"
 			/>
 			<FlashList

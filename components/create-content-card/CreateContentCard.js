@@ -49,18 +49,18 @@ export default function CreateContentCard({
 
 const styles = StyleSheet.create({
 	createCard: {
-		height: 125,
+		height: 115,
 		width: "32%",
 		borderRadius: 7.5,
 		backgroundColor: "rgba(255, 255, 255, 0.75)",
-		paddingHorizontal: 7.5,
+		paddingHorizontal: 5,
 		paddingVertical: 10,
 		flexDirection: "column",
 		justifyContent: "space-between"
 	},
 	createCardIconImage: {
-		height: 45,
-		width: 45,
+		height: 40,
+		width: 40,
 		alignSelf: "center"
 	},
 	createCardSalutationText: {

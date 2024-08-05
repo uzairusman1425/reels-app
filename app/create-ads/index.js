@@ -80,7 +80,7 @@ export default function Page() {
 		<ScrollView>
 			<View style={styles.container}>
 				<GallerySectionHeader
-					image={require("../../assets/icons/image.png")}
+					image={require("../../assets/icons/image.svg")}
 					title="Business Ads"
 				/>
 				<View style={styles.itemListContainer}>
@@ -96,7 +96,7 @@ export default function Page() {
 					})}
 				</View>
 				<GallerySectionHeader
-					image={require("../../assets/icons/image.png")}
+					image={require("../../assets/icons/image.svg")}
 					title="Business Cards"
 				/>
 				<View style={styles.itemListContainer}>
@@ -112,7 +112,7 @@ export default function Page() {
 					})}
 				</View>
 				<GallerySectionHeader
-					image={require("../../assets/icons/image.png")}
+					image={require("../../assets/icons/image.svg")}
 					title="Services"
 				/>
 				<View style={styles.itemListContainer}>
@@ -128,7 +128,7 @@ export default function Page() {
 					})}
 				</View>
 				<GallerySectionHeader
-					image={require("../../assets/icons/image.png")}
+					image={require("../../assets/icons/image.svg")}
 					title="Foods & Drinks"
 				/>
 				<View style={styles.itemListContainer}>
@@ -144,7 +144,7 @@ export default function Page() {
 					})}
 				</View>
 				<GallerySectionHeader
-					image={require("../../assets/icons/image.png")}
+					image={require("../../assets/icons/image.svg")}
 					title="Advertisement"
 				/>
 				<View style={styles.itemListContainer}>

@@ -1,7 +1,7 @@
 import { TouchableOpacity, View, StyleSheet } from "react-native"
 import { useRouter } from "expo-router"
 import { LinearGradient } from "expo-linear-gradient"
-import { Fontisto, Feather } from "@expo/vector-icons"
+import { Image } from "expo-image"
 import BackButton from "../back-button/BackButton"
 
 export default function EditScreenHeader() {
@@ -15,17 +15,17 @@ export default function EditScreenHeader() {
 			<BackButton />
 			<View style={styles.resetButtonsContainer}>
 				<TouchableOpacity style={styles.headerActionButton}>
-					<Fontisto
-						name="arrow-return-left"
-						size={22.5}
-						color="#1C274C"
+					<Image
+						source={require("../../assets/icons/undo.svg")}
+						style={styles.headerActionButtonIcon}
+						contentFit="contain"
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.headerActionButton}>
-					<Fontisto
-						name="arrow-return-right"
-						size={22.5}
-						color="#1C274C"
+					<Image
+						source={require("../../assets/icons/redo.svg")}
+						style={styles.headerActionButtonIcon}
+						contentFit="contain"
 					/>
 				</TouchableOpacity>
 			</View>
@@ -35,7 +35,11 @@ export default function EditScreenHeader() {
 					router?.navigate("/preview")
 				}}
 			>
-				<Feather name="eye" size={22.5} color="#1C274C" />
+				<Image
+					source={require("../../assets/icons/preview.svg")}
+					style={styles.headerActionButtonIcon}
+					contentFit="contain"
+				/>
 			</TouchableOpacity>
 		</LinearGradient>
 	)
@@ -57,6 +61,10 @@ const styles = StyleSheet.create({
 		backgroundColor: "gray",
 		alignItems: "center",
 		justifyContent: "center"
+	},
+	headerActionButtonIcon: {
+		height: 22.5,
+		width: 22.5
 	},
 	resetButtonsContainer: {
 		flexDirection: "row",

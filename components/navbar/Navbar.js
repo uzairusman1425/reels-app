@@ -7,35 +7,35 @@ export default function Navbar() {
 			<View style={styles.navListContainer}>
 				<TouchableOpacity>
 					<Image
-						source={require("../../assets/icons/icon-1.png")}
+						source={require("../../assets/icons/icon-1.svg")}
 						style={styles.navIcon}
 						contentFit="contain"
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity>
 					<Image
-						source={require("../../assets/icons/icon-2.png")}
+						source={require("../../assets/icons/icon-2.svg")}
 						style={styles.navIcon}
 						contentFit="contain"
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity>
 					<Image
-						source={require("../../assets/icons/icon-3.png")}
+						source={require("../../assets/icons/icon-3.svg")}
 						style={styles.navIcon}
 						contentFit="contain"
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity>
 					<Image
-						source={require("../../assets/icons/icon-4.png")}
+						source={require("../../assets/icons/icon-4.svg")}
 						style={styles.navIcon}
 						contentFit="contain"
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity>
 					<Image
-						source={require("../../assets/icons/icon-5.png")}
+						source={require("../../assets/icons/icon-5.svg")}
 						style={styles.navIcon}
 						contentFit="contain"
 					/>

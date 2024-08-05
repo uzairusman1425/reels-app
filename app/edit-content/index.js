@@ -9,41 +9,80 @@ export default function Page() {
 	const options = [
 		{
 			id: 1,
-			image: require("../../assets/icons/media.png"),
+			image: require("../../assets/icons/media.svg"),
 			title: "Media",
-			icon: require("../../assets/icons/media-sm.png")
+			icon: require("../../assets/icons/media-sm.svg")
 		},
 		{
 			id: 2,
-			image: require("../../assets/icons/music.png"),
+			image: require("../../assets/icons/music.svg"),
 			title: "Music",
-			icon: require("../../assets/icons/music-sm.png")
+			icon: require("../../assets/icons/music-sm.svg")
 		},
 		{
 			id: 3,
-			image: require("../../assets/icons/text.png"),
+			image: require("../../assets/icons/text.svg"),
 			title: "Text",
-			icon: require("../../assets/icons/text.png")
+			icon: require("../../assets/icons/text.svg")
 		},
 		{
 			id: 4,
-			image: require("../../assets/icons/effect.png"),
+			image: require("../../assets/icons/effect.svg"),
 			title: "Effect",
-			icon: require("../../assets/icons/effect-sm.png")
+			icon: require("../../assets/icons/effect-sm.svg")
 		},
 		{
 			id: 5,
-			image: require("../../assets/icons/sticker.png"),
+			image: require("../../assets/icons/sticker.svg"),
 			title: "Sticker",
-			icon: require("../../assets/icons/sticker-sm.png")
+			icon: require("../../assets/icons/sticker-sm.svg")
 		},
 		{
 			id: 6,
-			image: require("../../assets/icons/backside.png"),
+			image: require("../../assets/icons/backside.svg"),
 			title: "Backside",
-			icon: require("../../assets/icons/backside-sm.png")
+			icon: require("../../assets/icons/backside-sm.svg")
 		}
 	]
+
+	// const textEditingOptions = [
+	// 	{
+	// 		id: 1,
+	// 		image: require("../../assets/icons/media.svg"),
+	// 		title: "Font",
+	// 		icon: require("../../assets/icons/media-sm.svg")
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		image: require("../../assets/icons/music.svg"),
+	// 		title: "Music",
+	// 		icon: require("../../assets/icons/music-sm.svg")
+	// 	},
+	// 	{
+	// 		id: 3,
+	// 		image: require("../../assets/icons/text.svg"),
+	// 		title: "Text",
+	// 		icon: require("../../assets/icons/text.svg")
+	// 	},
+	// 	{
+	// 		id: 4,
+	// 		image: require("../../assets/icons/effect.svg"),
+	// 		title: "Effect",
+	// 		icon: require("../../assets/icons/effect-sm.svg")
+	// 	},
+	// 	{
+	// 		id: 5,
+	// 		image: require("../../assets/icons/sticker.svg"),
+	// 		title: "Sticker",
+	// 		icon: require("../../assets/icons/sticker-sm.svg")
+	// 	},
+	// 	{
+	// 		id: 6,
+	// 		image: require("../../assets/icons/backside.svg"),
+	// 		title: "Backside",
+	// 		icon: require("../../assets/icons/backside-sm.svg")
+	// 	}
+	// ]
 
 	const musicCategories = [
 		{
