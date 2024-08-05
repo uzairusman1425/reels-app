@@ -117,9 +117,13 @@ export default function EditContentModal({
 										size={22.5}
 										color="white"
 									/>
-									<Text style={styles.allowAccessButtonText}>
-										Allow access
-									</Text>
+									{fontsLoaded && (
+										<Text
+											style={styles.allowAccessButtonText}
+										>
+											Allow access
+										</Text>
+									)}
 								</TouchableOpacity>
 							</View>
 						) : selectedOption?.id === 2 ? (
@@ -453,9 +457,11 @@ const styles = StyleSheet.create({
 		gap: 5
 	},
 	allowAccessButtonText: {
-		fontSize: 17.5,
+		fontSize: 20,
 		fontWeight: "600",
-		color: "white"
+		color: "white",
+		fontFamily: "Genos-Regular",
+		lineHeight: 22.5
 	},
 	musicSection: {
 		flex: 1,

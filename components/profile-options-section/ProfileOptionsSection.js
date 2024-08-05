@@ -1,12 +1,8 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
-import { useRouter } from "expo-router"
 import { Image } from "expo-image"
 import { useFonts } from "expo-font"
-import { Ionicons } from "@expo/vector-icons"
 
 export default function ProfileOptionsSection() {
-	const router = useRouter()
-
 	const [fontsLoaded] = useFonts({
 		"Genos-Medium": require("../../assets/fonts/Genos/fonts/ttf/Genos-Medium.ttf")
 	})
@@ -14,11 +10,7 @@ export default function ProfileOptionsSection() {
 	return (
 		<View style={styles.profileOptionsSection}>
 			<View style={styles.profileInfoContainer}>
-				<TouchableOpacity
-					onPress={() => {
-						// router?.navigate("/camera")
-					}}
-				>
+				<TouchableOpacity>
 					<Image
 						source={require("../../assets/images/profile2.png")}
 						style={styles.profileImage}
@@ -35,7 +27,11 @@ export default function ProfileOptionsSection() {
 				</View>
 			</View>
 			<TouchableOpacity style={styles.settingsButton}>
-				<Ionicons name="settings-outline" size={27.5} color="white" />
+				<Image
+					source={require("../../assets/icons/settings.svg")}
+					style={styles.settingsButtonIcon}
+					contentFit="contain"
+				/>
 			</TouchableOpacity>
 		</View>
 	)
@@ -74,5 +70,9 @@ const styles = StyleSheet.create({
 		backgroundColor: "rgba(125, 125, 125, 0.75)",
 		alignItems: "center",
 		justifyContent: "center"
+	},
+	settingsButtonIcon: {
+		height: 27.5,
+		width: 27.5
 	}
 })
