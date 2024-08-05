@@ -10,7 +10,7 @@ import {
 } from "react-native"
 import { Image } from "expo-image"
 import { useFonts } from "expo-font"
-import AntDesign from "@expo/vector-icons/AntDesign"
+import { AntDesign, FontAwesome5 } from "@expo/vector-icons"
 import * as ImagePicker from "expo-image-picker"
 import PropTypes from "prop-types"
 import EditOptionCard from "../edit-option-card/EditOptionCard"
@@ -23,7 +23,9 @@ export default function EditContentModal({
 	setSelectedOption,
 	musicCategories,
 	selectedMusicCategory,
-	setSelectedMusicCategory
+	setSelectedMusicCategory,
+	selectedSong,
+	setSelectedSong
 }) {
 	const [fontsLoaded] = useFonts({
 		"Genos-Regular": require("../../assets/fonts/Genos/fonts/ttf/Genos-Regular.ttf")
@@ -34,7 +36,6 @@ export default function EditContentModal({
 	const pickImage = async () => {
 		let result = await ImagePicker?.launchImageLibraryAsync({
 			mediaTypes: ImagePicker?.MediaTypeOptions?.All,
-			aspect: [4, 3],
 			quality: 1
 		})
 
@@ -141,7 +142,7 @@ export default function EditContentModal({
 																selectedMusicCategory?.id ===
 																item?.id
 																	? "white"
-																	: "lightgrey"
+																	: "rgba(0, 0, 0, 0.04)"
 														}
 													]}
 													onPress={() => {
@@ -170,6 +171,139 @@ export default function EditContentModal({
 												</TouchableOpacity>
 											)
 										})}
+									</View>
+								</ScrollView>
+								<ScrollView
+									style={styles.songsScrollArea}
+									showsVerticalScrollIndicator={false}
+								>
+									<View style={styles.songsScrollContainer}>
+										{selectedMusicCategory?.songs?.map(
+											(item, key) => {
+												return (
+													<TouchableOpacity
+														style={[
+															styles.songItemContainer,
+															{
+																backgroundColor:
+																	selectedSong?.id ===
+																	item?.id
+																		? "rgba(0, 0, 0, 0.04)"
+																		: "transparent"
+															}
+														]}
+														key={key}
+														onPress={() => {
+															if (
+																selectedSong?.id ===
+																item?.id
+															) {
+																setSelectedSong(
+																	null
+																)
+															} else {
+																setSelectedSong(
+																	item
+																)
+															}
+														}}
+													>
+														<View
+															style={
+																styles.songContainer
+															}
+														>
+															<Image
+																source={
+																	item?.image
+																}
+																style={
+																	styles.songCoverImage
+																}
+																contentFit="cover"
+															/>
+															<View
+																style={
+																	styles.songDetailsContainer
+																}
+															>
+																{fontsLoaded && (
+																	<Text
+																		style={
+																			styles.songNameText
+																		}
+																	>
+																		{
+																			item?.name
+																		}
+																	</Text>
+																)}
+																<View
+																	style={
+																		styles.songArtistNameContainer
+																	}
+																>
+																	{fontsLoaded && (
+																		<Text
+																			style={
+																				styles.songArtistNameText
+																			}
+																		>
+																			{
+																				item?.artist
+																			}
+																		</Text>
+																	)}
+																	<View
+																		style={
+																			styles.circleSeparatorLarge
+																		}
+																	/>
+																</View>
+															</View>
+														</View>
+														<View
+															style={
+																styles.songIconsContainer
+															}
+														>
+															<Image
+																source={
+																	selectedSong?.id ===
+																	item?.id
+																		? require("../../assets/icons/playing.png")
+																		: require("../../assets/icons/play.png")
+																}
+																style={
+																	styles.songIcon
+																}
+																contentFit="contain"
+															/>
+															<View
+																style={[
+																	styles.checkbox,
+																	selectedSong?.id ===
+																	item?.id
+																		? styles.checkboxChecked
+																		: styles.checkboxUnchecked
+																]}
+															>
+																{selectedSong?.id ===
+																	item?.id && (
+																	<FontAwesome5
+																		name="check"
+																		size={
+																			10
+																		}
+																		color="white"
+																	/>
+																)}
+															</View>
+														</View>
+													</TouchableOpacity>
+												)
+											}
+										)}
 									</View>
 								</ScrollView>
 							</View>
@@ -258,12 +392,19 @@ const styles = StyleSheet.create({
 		fontSize: 16.5,
 		fontFamily: "Genos-Regular",
 		color: "#1C274C",
-		marginHorizontal: 3.5
+		marginHorizontal: 3.5,
+		lineHeight: 20
 	},
 	circleSeparator: {
 		height: 2,
 		width: 2,
 		borderRadius: 1,
+		backgroundColor: "gray"
+	},
+	circleSeparatorLarge: {
+		height: 4,
+		width: 4,
+		borderRadius: 2,
 		backgroundColor: "gray"
 	},
 	doneButton: {
@@ -277,7 +418,8 @@ const styles = StyleSheet.create({
 	doneButtonText: {
 		fontSize: 17.5,
 		fontFamily: "Genos-Regular",
-		color: "#1C274C"
+		color: "#1C274C",
+		lineHeight: 22.5
 	},
 	horizontalSeparator: {
 		height: 1,
@@ -320,7 +462,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		flexDirection: "column",
 		alignItems: "center",
-		gap: 25
+		gap: 10
 	},
 	musicTabsScrollArea: {
 		maxHeight: 25,
@@ -348,6 +490,79 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		fontFamily: "Genos-Regular",
 		color: "#1C274C"
+	},
+	songsScrollArea: {
+		flex: 1,
+		width: "100%"
+	},
+	songsScrollContainer: {
+		flexDirection: "column",
+		gap: 7.5,
+		marginHorizontal: 15
+	},
+	songItemContainer: {
+		height: 40,
+		width: "100%",
+		borderWidth: 0.5,
+		borderRadius: 7.5,
+		borderColor: "lightgrey",
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+		paddingHorizontal: 5
+	},
+	songContainer: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 7.5
+	},
+	songCoverImage: {
+		height: 30,
+		width: 30,
+		borderRadius: 5
+	},
+	songDetailsContainer: {
+		flexDirection: "column"
+	},
+	songNameText: {
+		fontSize: 12.5,
+		fontFamily: "Genos-Regular",
+		lineHeight: 12.5
+	},
+	songArtistNameContainer: {
+		flexDirection: "row",
+		gap: 7.5,
+		alignItems: "center"
+	},
+	songArtistNameText: {
+		fontSize: 12.5,
+		fontFamily: "Genos-Regular",
+		lineHeight: 15,
+		color: "gray"
+	},
+	songIconsContainer: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 35,
+		marginRight: 10
+	},
+	songIcon: {
+		height: 20,
+		width: 20
+	},
+	checkbox: {
+		height: 20,
+		width: 20,
+		borderRadius: 10
+	},
+	checkboxChecked: {
+		backgroundColor: "#5F9CE3",
+		alignItems: "center",
+		justifyContent: "center"
+	},
+	checkboxUnchecked: {
+		borderWidth: 1,
+		borderColor: "lightgrey"
 	}
 })
 
@@ -359,5 +574,7 @@ EditContentModal.propTypes = {
 	setSelectedOption: PropTypes.func.isRequired,
 	musicCategories: PropTypes.array.isRequired,
 	selectedMusicCategory: PropTypes.object.isRequired,
-	setSelectedMusicCategory: PropTypes.func.isRequired
+	setSelectedMusicCategory: PropTypes.func.isRequired,
+	selectedSong: PropTypes.object,
+	setSelectedSong: PropTypes.func.isRequired
 }

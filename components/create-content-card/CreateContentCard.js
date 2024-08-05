@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
 		alignSelf: "center"
 	},
 	createCardSalutationText: {
-		fontSize: 13.5,
+		fontSize: 12.5,
 		fontFamily: "Genos-Light",
 		color: "#1C274C",
 		marginTop: 10
 	},
 	createCardTitleText: {
-		fontSize: 15,
+		fontSize: 13.5,
 		fontFamily: "Genos-Medium",
 		color: "#1C274C"
 	},

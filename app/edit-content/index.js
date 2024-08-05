@@ -48,43 +48,213 @@ export default function Page() {
 	const musicCategories = [
 		{
 			id: 1,
-			title: "Pop"
+			title: "Pop",
+			songs: [
+				{
+					id: 1,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 2,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 2,
-			title: "Rock"
+			title: "Rock",
+			songs: [
+				{
+					id: 3,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 4,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 5,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 3,
-			title: "Hip Hop"
+			title: "Hip Hop",
+			songs: [
+				{
+					id: 6,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 7,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 4,
-			title: "Electronic"
+			title: "Electronic",
+			songs: [
+				{
+					id: 8,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 9,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 10,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 5,
-			title: "Country"
+			title: "Country",
+			songs: [
+				{
+					id: 11,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 12,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 6,
-			title: "Jazz"
+			title: "Jazz",
+			songs: [
+				{
+					id: 13,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 14,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 15,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 7,
-			title: "Classical"
+			title: "Classical",
+			songs: [
+				{
+					id: 16,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 17,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 8,
-			title: "Folk"
+			title: "Folk",
+			songs: [
+				{
+					id: 18,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 19,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 20,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 9,
-			title: "Reggae"
+			title: "Reggae",
+			songs: [
+				{
+					id: 21,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 22,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		},
 		{
 			id: 10,
-			title: "Metal"
+			title: "Metal",
+			songs: [
+				{
+					id: 23,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 24,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				},
+				{
+					id: 25,
+					name: "Shevan Perwer",
+					artist: "Hozanem",
+					image: require("../../assets/images/song-cover-image.png")
+				}
+			]
 		}
 	]
 
@@ -93,6 +263,7 @@ export default function Page() {
 	const [selectedMusicCategory, setSelectedMusicCategory] = useState(
 		musicCategories[0]
 	)
+	const [selectedSong, setSelectedSong] = useState(null)
 
 	return (
 		<View style={styles.container}>
@@ -116,6 +287,8 @@ export default function Page() {
 				musicCategories={musicCategories}
 				selectedMusicCategory={selectedMusicCategory}
 				setSelectedMusicCategory={setSelectedMusicCategory}
+				selectedSong={selectedSong}
+				setSelectedSong={setSelectedSong}
 			/>
 		</View>
 	)
