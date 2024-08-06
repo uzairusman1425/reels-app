@@ -10,6 +10,7 @@ import {
 } from "react-native"
 import { Image } from "expo-image"
 import { useFonts } from "expo-font"
+import { FlashList } from "@shopify/flash-list"
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons"
 import * as ImagePicker from "expo-image-picker"
 import PropTypes from "prop-types"
@@ -25,13 +26,17 @@ export default function EditContentModal({
 	selectedMusicCategory,
 	setSelectedMusicCategory,
 	selectedSong,
-	setSelectedSong
+	setSelectedSong,
+	textEditingOptions,
+	selectedTextEditingOption,
+	setSelectedTextEditingOption
 }) {
 	const [fontsLoaded] = useFonts({
 		"Genos-Regular": require("../../assets/fonts/Genos/fonts/ttf/Genos-Regular.ttf")
 	})
 
 	const [image, setImage] = useState(null)
+	const [previousSelectedOption, setPreviousSelectedOption] = useState()
 
 	const pickImage = async () => {
 		let result = await ImagePicker?.launchImageLibraryAsync({
@@ -77,27 +82,55 @@ export default function EditContentModal({
 						<View style={styles.headerContainer}>
 							<View style={styles.circleSeparator} />
 							<Image
-								source={selectedOption?.icon}
+								source={
+									selectedOption?.id === 3
+										? selectedTextEditingOption?.icon
+										: selectedOption?.icon
+								}
 								style={styles.headerIcon}
 							/>
 							<View style={styles.circleSeparator} />
 							{fontsLoaded && (
 								<Text style={styles.headerTitleText}>
-									{selectedOption?.title}
+									{selectedOption?.id === 3
+										? selectedTextEditingOption?.title
+										: selectedOption?.title}
 								</Text>
 							)}
 							<View style={styles.circleSeparator} />
 						</View>
-						<TouchableOpacity
-							style={styles.doneButton}
-							onPress={() => {
-								setOpenModal(false)
-							}}
-						>
-							{fontsLoaded && (
-								<Text style={styles.doneButtonText}>Done</Text>
+						<View style={styles.actionButtonsContainer}>
+							{selectedOption?.id === 3 && (
+								<TouchableOpacity style={styles.actionButton}>
+									<Image
+										source={require("../../assets/icons/undo.svg")}
+										style={styles.actionButtonIcon}
+										contentFit="contain"
+									/>
+								</TouchableOpacity>
 							)}
-						</TouchableOpacity>
+							{selectedOption?.id === 3 && (
+								<TouchableOpacity style={styles.actionButton}>
+									<Image
+										source={require("../../assets/icons/redo.svg")}
+										style={styles.actionButtonIcon}
+										contentFit="contain"
+									/>
+								</TouchableOpacity>
+							)}
+							<TouchableOpacity
+								style={styles.doneButton}
+								onPress={() => {
+									setOpenModal(false)
+								}}
+							>
+								{fontsLoaded && (
+									<Text style={styles.doneButtonText}>
+										Done
+									</Text>
+								)}
+							</TouchableOpacity>
+						</View>
 					</View>
 					<View style={styles.horizontalSeparator} />
 					<View style={styles.modalBodyContainer}>
@@ -311,9 +344,45 @@ export default function EditContentModal({
 									</View>
 								</ScrollView>
 							</View>
-						) : (
-							<View />
-						)}
+						) : selectedOption?.id === 3 ? (
+							selectedTextEditingOption?.id === 1 ? (
+								<View style={styles.fontSection}>
+									<FlashList
+										data={[
+											"Fonts",
+											"Fonts",
+											"Fonts",
+											"Fonts",
+											"Fonts",
+											"Fonts",
+											"Fonts",
+											"Fonts"
+										]}
+										renderItem={({ item }) => (
+											<TouchableOpacity
+												style={styles.fontTab}
+											>
+												<Text
+													style={styles.fontTabText}
+												>
+													{item}
+												</Text>
+											</TouchableOpacity>
+										)}
+										estimatedItemSize={200}
+										numColumns={4}
+										ItemSeparatorComponent={() => (
+											<View
+												style={styles.itemSeparator}
+											/>
+										)}
+										showsVerticalScrollIndicator={false}
+									/>
+								</View>
+							) : selectedTextEditingOption?.id === 2 ? (
+								<View></View>
+							) : null
+						) : null}
 					</View>
 					<ScrollView
 						horizontal
@@ -321,23 +390,60 @@ export default function EditContentModal({
 						showsHorizontalScrollIndicator={false}
 					>
 						<View style={styles.scrollItemsContainer}>
-							{options?.map((item, key) => {
-								return (
-									<EditOptionCard
-										image={item?.image}
-										title={item?.title}
-										color={
-											selectedOption?.id === item?.id
-												? "rgba(27, 196, 105, 0.5)"
-												: "lightgrey"
-										}
-										onPress={() => {
-											setSelectedOption(item)
-										}}
-										key={key}
-									/>
-								)
-							})}
+							{selectedOption?.id === 3 && (
+								<EditOptionCard
+									image={require("../../assets/icons/back.svg")}
+									title="Back"
+									color="lightgrey"
+									onPress={() => {
+										setSelectedOption(
+											previousSelectedOption
+										)
+									}}
+								/>
+							)}
+							{selectedOption?.id === 3
+								? textEditingOptions?.map((item, key) => {
+										return (
+											<EditOptionCard
+												image={item?.image}
+												title={item?.title}
+												color={
+													selectedTextEditingOption?.id ===
+													item?.id
+														? "rgba(27, 196, 105, 0.5)"
+														: "lightgrey"
+												}
+												onPress={() => {
+													setSelectedTextEditingOption(
+														item
+													)
+												}}
+												key={key}
+											/>
+										)
+								  })
+								: options?.map((item, key) => {
+										return (
+											<EditOptionCard
+												image={item?.image}
+												title={item?.title}
+												color={
+													selectedOption?.id ===
+													item?.id
+														? "rgba(27, 196, 105, 0.5)"
+														: "lightgrey"
+												}
+												onPress={() => {
+													setPreviousSelectedOption(
+														selectedOption
+													)
+													setSelectedOption(item)
+												}}
+												key={key}
+											/>
+										)
+								  })}
 						</View>
 					</ScrollView>
 				</View>
@@ -389,8 +495,8 @@ const styles = StyleSheet.create({
 		marginVertical: 10
 	},
 	headerIcon: {
-		height: 15,
-		width: 15
+		height: 17.5,
+		width: 17.5
 	},
 	headerTitleText: {
 		fontSize: 16.5,
@@ -410,6 +516,23 @@ const styles = StyleSheet.create({
 		width: 4,
 		borderRadius: 2,
 		backgroundColor: "gray"
+	},
+	actionButtonsContainer: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 25
+	},
+	actionButton: {
+		height: 25,
+		width: 25,
+		borderRadius: 6.5,
+		alignItems: "center",
+		justifyContent: "center",
+		backgroundColor: "white"
+	},
+	actionButtonIcon: {
+		height: 15,
+		width: 15
 	},
 	doneButton: {
 		height: 25,
@@ -569,6 +692,28 @@ const styles = StyleSheet.create({
 	checkboxUnchecked: {
 		borderWidth: 1,
 		borderColor: "lightgrey"
+	},
+	fontSection: {
+		flex: 1,
+		width: "100%",
+		padding: 15
+	},
+	fontTab: {
+		height: 25,
+		width: "90%",
+		backgroundColor: "lightgrey",
+		borderRadius: 5,
+		marginHorizontal: "auto",
+		alignItems: "center",
+		justifyContent: "center"
+	},
+	fontTabText: {
+		fontSize: 15,
+		color: "white",
+		fontFamily: "Genos-Regular"
+	},
+	itemSeparator: {
+		height: 10
 	}
 })
 
@@ -582,5 +727,8 @@ EditContentModal.propTypes = {
 	selectedMusicCategory: PropTypes.object.isRequired,
 	setSelectedMusicCategory: PropTypes.func.isRequired,
 	selectedSong: PropTypes.object,
-	setSelectedSong: PropTypes.func.isRequired
+	setSelectedSong: PropTypes.func.isRequired,
+	textEditingOptions: PropTypes.array.isRequired,
+	selectedTextEditingOption: PropTypes.object,
+	setSelectedTextEditingOption: PropTypes.func.isRequired
 }

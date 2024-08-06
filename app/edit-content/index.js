@@ -45,44 +45,50 @@ export default function Page() {
 		}
 	]
 
-	// const textEditingOptions = [
-	// 	{
-	// 		id: 1,
-	// 		image: require("../../assets/icons/media.svg"),
-	// 		title: "Font",
-	// 		icon: require("../../assets/icons/media-sm.svg")
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		image: require("../../assets/icons/music.svg"),
-	// 		title: "Music",
-	// 		icon: require("../../assets/icons/music-sm.svg")
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		image: require("../../assets/icons/text.svg"),
-	// 		title: "Text",
-	// 		icon: require("../../assets/icons/text.svg")
-	// 	},
-	// 	{
-	// 		id: 4,
-	// 		image: require("../../assets/icons/effect.svg"),
-	// 		title: "Effect",
-	// 		icon: require("../../assets/icons/effect-sm.svg")
-	// 	},
-	// 	{
-	// 		id: 5,
-	// 		image: require("../../assets/icons/sticker.svg"),
-	// 		title: "Sticker",
-	// 		icon: require("../../assets/icons/sticker-sm.svg")
-	// 	},
-	// 	{
-	// 		id: 6,
-	// 		image: require("../../assets/icons/backside.svg"),
-	// 		title: "Backside",
-	// 		icon: require("../../assets/icons/backside-sm.svg")
-	// 	}
-	// ]
+	const textEditingOptions = [
+		{
+			id: 1,
+			image: require("../../assets/icons/font.svg"),
+			title: "Font",
+			icon: require("../../assets/icons/font.svg")
+		},
+		{
+			id: 2,
+			image: require("../../assets/icons/high.svg"),
+			title: "High",
+			icon: require("../../assets/icons/high.svg")
+		},
+		{
+			id: 3,
+			image: require("../../assets/icons/space.svg"),
+			title: "Space",
+			icon: require("../../assets/icons/space.svg")
+		},
+		{
+			id: 4,
+			image: require("../../assets/icons/right-align.svg"),
+			title: "Lining",
+			icon: require("../../assets/icons/right-align.svg")
+		},
+		{
+			id: 5,
+			image: require("../../assets/icons/size.svg"),
+			title: "Size",
+			icon: require("../../assets/icons/size.svg")
+		},
+		{
+			id: 6,
+			image: require("../../assets/icons/colors.svg"),
+			title: "Color",
+			icon: require("../../assets/icons/colors.svg")
+		},
+		{
+			id: 7,
+			image: require("../../assets/icons/text-backside.svg"),
+			title: "Backside",
+			icon: require("../../assets/icons/text-backside.svg")
+		}
+	]
 
 	const musicCategories = [
 		{
@@ -303,6 +309,9 @@ export default function Page() {
 		musicCategories[0]
 	)
 	const [selectedSong, setSelectedSong] = useState(null)
+	const [selectedTextEditingOption, setSelectedTextEditingOption] = useState(
+		textEditingOptions[0]
+	)
 
 	return (
 		<View style={styles.container}>
@@ -328,6 +337,9 @@ export default function Page() {
 				setSelectedMusicCategory={setSelectedMusicCategory}
 				selectedSong={selectedSong}
 				setSelectedSong={setSelectedSong}
+				textEditingOptions={textEditingOptions}
+				selectedTextEditingOption={selectedTextEditingOption}
+				setSelectedTextEditingOption={setSelectedTextEditingOption}
 			/>
 		</View>
 	)
