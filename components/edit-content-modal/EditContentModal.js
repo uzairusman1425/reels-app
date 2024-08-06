@@ -10,12 +10,61 @@ import {
 } from "react-native"
 import { Image } from "expo-image"
 import { useFonts } from "expo-font"
+import {
+	GestureHandlerRootView,
+	gestureHandlerRootHOC,
+	Gesture,
+	GestureDetector
+} from "react-native-gesture-handler"
+import Animated, {
+	useSharedValue,
+	useAnimatedStyle,
+	runOnJS
+} from "react-native-reanimated"
 import { FlashList } from "@shopify/flash-list"
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons"
 import * as ImagePicker from "expo-image-picker"
 import PropTypes from "prop-types"
 import EditOptionCard from "../edit-option-card/EditOptionCard"
 
+const Slider = gestureHandlerRootHOC(() => {
+	const [sliderValue, setSliderValue] = useState(0)
+
+	const X = useSharedValue(0)
+
+	const panGesture = Gesture?.Pan()
+		?.onStart((e) => {
+			X.value = e.x
+			runOnJS(setSliderValue)(Math.round((X.value / 240) * 100))
+		})
+		?.onUpdate((e) => {
+			X.value = Math.max(0, Math.min(e.x, 240))
+			runOnJS(setSliderValue)(Math.round((X.value / 240) * 100))
+		})
+
+	const animatedStyles = {
+		swipeable: useAnimatedStyle(() => {
+			return {
+				transform: [{ translateX: X.value }]
+			}
+		})
+	}
+	return (
+		<GestureDetector gesture={panGesture}>
+			<View style={styles.swipeContainer}>
+				<Animated.View
+					style={[styles.swipeable, animatedStyles.swipeable]}
+				>
+					<View style={styles.sliderValueContainer}>
+						<Text style={styles.sliderValueText}>
+							{sliderValue}
+						</Text>
+					</View>
+				</Animated.View>
+			</View>
+		</GestureDetector>
+	)
+})
 export default function EditContentModal({
 	openModal,
 	setOpenModal,
@@ -57,397 +106,429 @@ export default function EditContentModal({
 				setOpenModal(false)
 			}}
 		>
-			<View style={styles.modalWrapper}>
-				<TouchableWithoutFeedback
-					onPress={() => {
-						setOpenModal(false)
-					}}
-				>
-					<View style={styles.modalEmptySpace} />
-				</TouchableWithoutFeedback>
-				<View
-					style={[
-						styles.modalContainer,
-						{
-							height:
-								selectedOption?.id === 1
-									? 465
-									: selectedOption?.id === 2
-									? 400
-									: 300
-						}
-					]}
-				>
-					<View style={styles.headerWrapper}>
-						<View style={styles.headerContainer}>
-							<View style={styles.circleSeparator} />
-							<Image
-								source={
-									selectedOption?.id === 3
-										? selectedTextEditingOption?.icon
-										: selectedOption?.icon
-								}
-								style={styles.headerIcon}
-							/>
-							<View style={styles.circleSeparator} />
-							{fontsLoaded && (
-								<Text style={styles.headerTitleText}>
-									{selectedOption?.id === 3
-										? selectedTextEditingOption?.title
-										: selectedOption?.title}
-								</Text>
-							)}
-							<View style={styles.circleSeparator} />
-						</View>
-						<View style={styles.actionButtonsContainer}>
-							{selectedOption?.id === 3 && (
-								<TouchableOpacity style={styles.actionButton}>
-									<Image
-										source={require("../../assets/icons/undo.svg")}
-										style={styles.actionButtonIcon}
-										contentFit="contain"
-									/>
-								</TouchableOpacity>
-							)}
-							{selectedOption?.id === 3 && (
-								<TouchableOpacity style={styles.actionButton}>
-									<Image
-										source={require("../../assets/icons/redo.svg")}
-										style={styles.actionButtonIcon}
-										contentFit="contain"
-									/>
-								</TouchableOpacity>
-							)}
-							<TouchableOpacity
-								style={styles.doneButton}
-								onPress={() => {
-									setOpenModal(false)
-								}}
-							>
+			<GestureHandlerRootView style={{ flex: 1 }}>
+				<View style={styles.modalWrapper}>
+					<TouchableWithoutFeedback
+						onPress={() => {
+							setOpenModal(false)
+						}}
+					>
+						<View style={styles.modalEmptySpace} />
+					</TouchableWithoutFeedback>
+					<View
+						style={[
+							styles.modalContainer,
+							{
+								height:
+									selectedOption?.id === 1
+										? 465
+										: selectedOption?.id === 2
+										? 400
+										: 300
+							}
+						]}
+					>
+						<View style={styles.headerWrapper}>
+							<View style={styles.headerContainer}>
+								<View style={styles.circleSeparator} />
+								<Image
+									source={
+										selectedOption?.id === 3
+											? selectedTextEditingOption?.icon
+											: selectedOption?.icon
+									}
+									style={styles.headerIcon}
+								/>
+								<View style={styles.circleSeparator} />
 								{fontsLoaded && (
-									<Text style={styles.doneButtonText}>
-										Done
+									<Text style={styles.headerTitleText}>
+										{selectedOption?.id === 3
+											? selectedTextEditingOption?.title
+											: selectedOption?.title}
 									</Text>
 								)}
-							</TouchableOpacity>
-						</View>
-					</View>
-					<View style={styles.horizontalSeparator} />
-					<View style={styles.modalBodyContainer}>
-						{selectedOption?.id === 1 ? (
-							<View style={styles.mediaSection}>
-								<Image
-									source={require("../../assets/images/edit-media-bg.png")}
-									style={styles.mediaBackgroundImage}
-									contentFit="contain"
-								/>
+								<View style={styles.circleSeparator} />
+							</View>
+							<View style={styles.actionButtonsContainer}>
+								{selectedOption?.id === 3 && (
+									<TouchableOpacity
+										style={styles.actionButton}
+									>
+										<Image
+											source={require("../../assets/icons/undo.svg")}
+											style={styles.actionButtonIcon}
+											contentFit="contain"
+										/>
+									</TouchableOpacity>
+								)}
+								{selectedOption?.id === 3 && (
+									<TouchableOpacity
+										style={styles.actionButton}
+									>
+										<Image
+											source={require("../../assets/icons/redo.svg")}
+											style={styles.actionButtonIcon}
+											contentFit="contain"
+										/>
+									</TouchableOpacity>
+								)}
 								<TouchableOpacity
-									style={styles.allowAccessButton}
-									onPress={pickImage}
+									style={styles.doneButton}
+									onPress={() => {
+										setOpenModal(false)
+									}}
 								>
-									<AntDesign
-										name="check"
-										size={22.5}
-										color="white"
-									/>
 									{fontsLoaded && (
-										<Text
-											style={styles.allowAccessButtonText}
-										>
-											Allow access
+										<Text style={styles.doneButtonText}>
+											Done
 										</Text>
 									)}
 								</TouchableOpacity>
 							</View>
-						) : selectedOption?.id === 2 ? (
-							<View style={styles.musicSection}>
-								<ScrollView
-									horizontal
-									style={styles.musicTabsScrollArea}
-									showsHorizontalScrollIndicator={false}
-								>
-									<View
-										style={styles.musicTabsScrollContainer}
+						</View>
+						<View style={styles.horizontalSeparator} />
+						<View style={styles.modalBodyContainer}>
+							{selectedOption?.id === 1 ? (
+								<View style={styles.mediaSection}>
+									<Image
+										source={require("../../assets/images/edit-media-bg.png")}
+										style={styles.mediaBackgroundImage}
+										contentFit="contain"
+									/>
+									<TouchableOpacity
+										style={styles.allowAccessButton}
+										onPress={pickImage}
 									>
-										{musicCategories?.map((item, key) => {
-											return (
-												<TouchableOpacity
-													style={[
-														styles.musicCategoryTab,
-														{
-															backgroundColor:
-																selectedMusicCategory?.id ===
-																item?.id
-																	? "white"
-																	: "rgba(0, 0, 0, 0.04)"
-														}
-													]}
-													onPress={() => {
-														setSelectedMusicCategory(
-															item
-														)
-													}}
-													key={key}
-												>
-													<Image
-														source={require("../../assets/icons/music-category.svg")}
-														style={
-															styles.musicCategoryTabIcon
-														}
-														contentFit="contain"
-													/>
-													{fontsLoaded && (
-														<Text
-															style={
-																styles.musicCategoryTabText
-															}
-														>
-															{item?.title}
-														</Text>
-													)}
-												</TouchableOpacity>
-											)
-										})}
-									</View>
-								</ScrollView>
-								<ScrollView
-									style={styles.songsScrollArea}
-									showsVerticalScrollIndicator={false}
-								>
-									<View style={styles.songsScrollContainer}>
-										{selectedMusicCategory?.songs?.map(
-											(item, key) => {
-												return (
-													<TouchableOpacity
-														style={[
-															styles.songItemContainer,
-															{
-																backgroundColor:
-																	selectedSong?.id ===
-																	item?.id
-																		? "rgba(0, 0, 0, 0.04)"
-																		: "transparent"
-															}
-														]}
-														key={key}
-														onPress={() => {
-															if (
-																selectedSong?.id ===
-																item?.id
-															) {
-																setSelectedSong(
-																	null
-																)
-															} else {
-																setSelectedSong(
+										<AntDesign
+											name="check"
+											size={22.5}
+											color="white"
+										/>
+										{fontsLoaded && (
+											<Text
+												style={
+													styles.allowAccessButtonText
+												}
+											>
+												Allow access
+											</Text>
+										)}
+									</TouchableOpacity>
+								</View>
+							) : selectedOption?.id === 2 ? (
+								<View style={styles.musicSection}>
+									<ScrollView
+										horizontal
+										style={styles.musicTabsScrollArea}
+										showsHorizontalScrollIndicator={false}
+									>
+										<View
+											style={
+												styles.musicTabsScrollContainer
+											}
+										>
+											{musicCategories?.map(
+												(item, key) => {
+													return (
+														<TouchableOpacity
+															style={[
+																styles.musicCategoryTab,
+																{
+																	backgroundColor:
+																		selectedMusicCategory?.id ===
+																		item?.id
+																			? "white"
+																			: "rgba(0, 0, 0, 0.04)"
+																}
+															]}
+															onPress={() => {
+																setSelectedMusicCategory(
 																	item
 																)
-															}
-														}}
-													>
-														<View
-															style={
-																styles.songContainer
-															}
+															}}
+															key={key}
 														>
 															<Image
-																source={
-																	item?.image
-																}
+																source={require("../../assets/icons/music-category.svg")}
 																style={
-																	styles.songCoverImage
+																	styles.musicCategoryTabIcon
 																}
-																contentFit="cover"
+																contentFit="contain"
 															/>
+															{fontsLoaded && (
+																<Text
+																	style={
+																		styles.musicCategoryTabText
+																	}
+																>
+																	{
+																		item?.title
+																	}
+																</Text>
+															)}
+														</TouchableOpacity>
+													)
+												}
+											)}
+										</View>
+									</ScrollView>
+									<ScrollView
+										style={styles.songsScrollArea}
+										showsVerticalScrollIndicator={false}
+									>
+										<View
+											style={styles.songsScrollContainer}
+										>
+											{selectedMusicCategory?.songs?.map(
+												(item, key) => {
+													return (
+														<TouchableOpacity
+															style={[
+																styles.songItemContainer,
+																{
+																	backgroundColor:
+																		selectedSong?.id ===
+																		item?.id
+																			? "rgba(0, 0, 0, 0.04)"
+																			: "transparent"
+																}
+															]}
+															key={key}
+															onPress={() => {
+																if (
+																	selectedSong?.id ===
+																	item?.id
+																) {
+																	setSelectedSong(
+																		null
+																	)
+																} else {
+																	setSelectedSong(
+																		item
+																	)
+																}
+															}}
+														>
 															<View
 																style={
-																	styles.songDetailsContainer
+																	styles.songContainer
 																}
 															>
-																{fontsLoaded && (
-																	<Text
-																		style={
-																			styles.songNameText
-																		}
-																	>
-																		{
-																			item?.name
-																		}
-																	</Text>
-																)}
+																<Image
+																	source={
+																		item?.image
+																	}
+																	style={
+																		styles.songCoverImage
+																	}
+																	contentFit="cover"
+																/>
 																<View
 																	style={
-																		styles.songArtistNameContainer
+																		styles.songDetailsContainer
 																	}
 																>
 																	{fontsLoaded && (
 																		<Text
 																			style={
-																				styles.songArtistNameText
+																				styles.songNameText
 																			}
 																		>
 																			{
-																				item?.artist
+																				item?.name
 																			}
 																		</Text>
 																	)}
 																	<View
 																		style={
-																			styles.circleSeparatorLarge
+																			styles.songArtistNameContainer
 																		}
-																	/>
+																	>
+																		{fontsLoaded && (
+																			<Text
+																				style={
+																					styles.songArtistNameText
+																				}
+																			>
+																				{
+																					item?.artist
+																				}
+																			</Text>
+																		)}
+																		<View
+																			style={
+																				styles.circleSeparatorLarge
+																			}
+																		/>
+																	</View>
 																</View>
 															</View>
-														</View>
-														<View
-															style={
-																styles.songIconsContainer
-															}
-														>
-															<Image
-																source={
-																	selectedSong?.id ===
-																	item?.id
-																		? require("../../assets/icons/playing.svg")
-																		: require("../../assets/icons/play.svg")
-																}
-																style={
-																	styles.songIcon
-																}
-																contentFit="contain"
-															/>
 															<View
-																style={[
-																	styles.checkbox,
-																	selectedSong?.id ===
-																	item?.id
-																		? styles.checkboxChecked
-																		: styles.checkboxUnchecked
-																]}
+																style={
+																	styles.songIconsContainer
+																}
 															>
-																{selectedSong?.id ===
-																	item?.id && (
-																	<FontAwesome5
-																		name="check"
-																		size={
-																			10
-																		}
-																		color="white"
-																	/>
-																)}
+																<Image
+																	source={
+																		selectedSong?.id ===
+																		item?.id
+																			? require("../../assets/icons/playing.svg")
+																			: require("../../assets/icons/play.svg")
+																	}
+																	style={
+																		styles.songIcon
+																	}
+																	contentFit="contain"
+																/>
+																<View
+																	style={[
+																		styles.checkbox,
+																		selectedSong?.id ===
+																		item?.id
+																			? styles.checkboxChecked
+																			: styles.checkboxUnchecked
+																	]}
+																>
+																	{selectedSong?.id ===
+																		item?.id && (
+																		<FontAwesome5
+																			name="check"
+																			size={
+																				10
+																			}
+																			color="white"
+																		/>
+																	)}
+																</View>
 															</View>
-														</View>
-													</TouchableOpacity>
-												)
-											}
-										)}
-									</View>
-								</ScrollView>
-							</View>
-						) : selectedOption?.id === 3 ? (
-							selectedTextEditingOption?.id === 1 ? (
-								<View style={styles.fontSection}>
-									<FlashList
-										data={[
-											"Fonts",
-											"Fonts",
-											"Fonts",
-											"Fonts",
-											"Fonts",
-											"Fonts",
-											"Fonts",
-											"Fonts"
-										]}
-										renderItem={({ item }) => (
-											<TouchableOpacity
-												style={styles.fontTab}
-											>
-												<Text
-													style={styles.fontTabText}
-												>
-													{item}
-												</Text>
-											</TouchableOpacity>
-										)}
-										estimatedItemSize={200}
-										numColumns={4}
-										ItemSeparatorComponent={() => (
-											<View
-												style={styles.itemSeparator}
-											/>
-										)}
-										showsVerticalScrollIndicator={false}
-									/>
+														</TouchableOpacity>
+													)
+												}
+											)}
+										</View>
+									</ScrollView>
 								</View>
-							) : selectedTextEditingOption?.id === 2 ? (
-								<View></View>
-							) : null
-						) : null}
-					</View>
-					<ScrollView
-						horizontal
-						style={styles.horizontalScrollArea}
-						showsHorizontalScrollIndicator={false}
-					>
-						<View style={styles.scrollItemsContainer}>
-							{selectedOption?.id === 3 && (
-								<EditOptionCard
-									image={require("../../assets/icons/back.svg")}
-									title="Back"
-									color="lightgrey"
-									onPress={() => {
-										setSelectedOption(
-											previousSelectedOption
-										)
-									}}
-								/>
-							)}
-							{selectedOption?.id === 3
-								? textEditingOptions?.map((item, key) => {
-										return (
-											<EditOptionCard
-												image={item?.image}
-												title={item?.title}
-												color={
-													selectedTextEditingOption?.id ===
-													item?.id
-														? "rgba(27, 196, 105, 0.5)"
-														: "lightgrey"
-												}
-												onPress={() => {
-													setSelectedTextEditingOption(
-														item
-													)
-												}}
-												key={key}
-											/>
-										)
-								  })
-								: options?.map((item, key) => {
-										return (
-											<EditOptionCard
-												image={item?.image}
-												title={item?.title}
-												color={
-													selectedOption?.id ===
-													item?.id
-														? "rgba(27, 196, 105, 0.5)"
-														: "lightgrey"
-												}
-												onPress={() => {
-													setPreviousSelectedOption(
-														selectedOption
-													)
-													setSelectedOption(item)
-												}}
-												key={key}
-											/>
-										)
-								  })}
+							) : selectedOption?.id === 3 ? (
+								selectedTextEditingOption?.id === 1 ? (
+									<View style={styles.fontSection}>
+										<FlashList
+											data={[
+												"Fonts",
+												"Fonts",
+												"Fonts",
+												"Fonts",
+												"Fonts",
+												"Fonts",
+												"Fonts",
+												"Fonts"
+											]}
+											renderItem={({ item }) => (
+												<TouchableOpacity
+													style={styles.fontTab}
+												>
+													<Text
+														style={
+															styles.fontTabText
+														}
+													>
+														{item}
+													</Text>
+												</TouchableOpacity>
+											)}
+											estimatedItemSize={200}
+											numColumns={4}
+											ItemSeparatorComponent={() => (
+												<View
+													style={styles.itemSeparator}
+												/>
+											)}
+											showsVerticalScrollIndicator={false}
+										/>
+									</View>
+								) : selectedTextEditingOption?.id === 2 ? (
+									<View style={styles.spaceSection}>
+										<View style={styles.sliderBox}>
+											<Slider />
+										</View>
+									</View>
+								) : selectedTextEditingOption?.id === 3 ? (
+									<View style={styles.spaceSection}>
+										<View style={styles.sliderBox}>
+											<Slider />
+										</View>
+									</View>
+								) : null
+							) : null}
 						</View>
-					</ScrollView>
+						<ScrollView
+							horizontal
+							style={styles.horizontalScrollArea}
+							showsHorizontalScrollIndicator={false}
+						>
+							<View style={styles.scrollItemsContainer}>
+								{selectedOption?.id === 3 && (
+									<EditOptionCard
+										image={require("../../assets/icons/back.svg")}
+										title="Back"
+										color="lightgrey"
+										onPress={() => {
+											if (previousSelectedOption) {
+												setSelectedOption(
+													previousSelectedOption
+												)
+											} else {
+												setOpenModal(false)
+											}
+										}}
+									/>
+								)}
+								{selectedOption?.id === 3
+									? textEditingOptions?.map((item, key) => {
+											return (
+												<EditOptionCard
+													image={item?.image}
+													title={item?.title}
+													color={
+														selectedTextEditingOption?.id ===
+														item?.id
+															? "rgba(27, 196, 105, 0.5)"
+															: "lightgrey"
+													}
+													onPress={() => {
+														setSelectedTextEditingOption(
+															item
+														)
+													}}
+													key={key}
+												/>
+											)
+									  })
+									: options?.map((item, key) => {
+											return (
+												<EditOptionCard
+													image={item?.image}
+													title={item?.title}
+													color={
+														selectedOption?.id ===
+														item?.id
+															? "rgba(27, 196, 105, 0.5)"
+															: "lightgrey"
+													}
+													onPress={() => {
+														setPreviousSelectedOption(
+															selectedOption
+														)
+														setSelectedOption(item)
+													}}
+													key={key}
+												/>
+											)
+									  })}
+							</View>
+						</ScrollView>
+					</View>
 				</View>
-			</View>
+			</GestureHandlerRootView>
 		</Modal>
 	)
 }
@@ -714,6 +795,55 @@ const styles = StyleSheet.create({
 	},
 	itemSeparator: {
 		height: 10
+	},
+	spaceSection: {
+		flex: 1,
+		width: "100%",
+		alignItems: "center",
+		justifyContent: "center"
+	},
+	sliderBox: {
+		height: 75,
+		width: 275,
+		backgroundColor: "lightgrey",
+		borderRadius: 10,
+		alignItems: "center"
+	},
+	swipeContainer: {
+		height: 5,
+		width: 250,
+		borderRadius: 2.5,
+		backgroundColor: "white",
+		alignItems: "center",
+		justifyContent: "center",
+		marginTop: 45
+	},
+	swipeable: {
+		height: 10,
+		width: 10,
+		borderRadius: 5,
+		backgroundColor: "white",
+		position: "absolute",
+		left: 0,
+		zIndex: 2,
+		elevation: 5,
+		shadowOffset: { width: 0, height: 2.5 },
+		shadowOpacity: 0.5,
+		shadowRadius: 3
+	},
+	sliderValueContainer: {
+		position: "absolute",
+		top: -30,
+		left: -5,
+		height: 20,
+		width: 20,
+		borderRadius: 10,
+		backgroundColor: "white",
+		alignItems: "center",
+		justifyContent: "center"
+	},
+	sliderValueText: {
+		fontSize: 7.5
 	}
 })
 
