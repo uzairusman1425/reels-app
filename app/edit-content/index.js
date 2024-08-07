@@ -50,44 +50,85 @@ export default function Page() {
 			id: 1,
 			image: require("../../assets/icons/font.svg"),
 			title: "Font",
+			name: "Font",
 			icon: require("../../assets/icons/font.svg")
 		},
 		{
 			id: 2,
 			image: require("../../assets/icons/high.svg"),
-			title: "High",
+			title: "High Space",
+			name: "High",
 			icon: require("../../assets/icons/high.svg")
 		},
 		{
 			id: 3,
 			image: require("../../assets/icons/space.svg"),
-			title: "Space",
+			title: "Side Space",
+			name: "Space",
 			icon: require("../../assets/icons/space.svg")
 		},
 		{
 			id: 4,
 			image: require("../../assets/icons/right-align.svg"),
-			title: "Lining",
+			title: "Text Alignment",
+			name: "Lining",
 			icon: require("../../assets/icons/right-align.svg")
 		},
 		{
 			id: 5,
 			image: require("../../assets/icons/size.svg"),
-			title: "Size",
+			title: "Text Size",
+			name: "Size",
 			icon: require("../../assets/icons/size.svg")
 		},
 		{
 			id: 6,
 			image: require("../../assets/icons/colors.svg"),
-			title: "Color",
+			title: "Select Colors",
+			name: "Color",
 			icon: require("../../assets/icons/colors.svg")
 		},
 		{
 			id: 7,
 			image: require("../../assets/icons/text-backside.svg"),
-			title: "Backside",
+			title: "Text Background",
+			name: "Backside",
 			icon: require("../../assets/icons/text-backside.svg")
 		}
+	]
+
+	const textAlignmentOptions = [
+		{
+			id: 1,
+			title: "Right Side",
+			image: require("../../assets/icons/right-align.svg")
+		},
+		{
+			id: 2,
+			title: "Left Side",
+			image: require("../../assets/icons/left-align.svg")
+		},
+		{
+			id: 3,
+			title: "Center",
+			image: require("../../assets/icons/center-align.svg")
+		},
+		{
+			id: 4,
+			title: "Upside",
+			image: require("../../assets/icons/top-align.svg")
+		}
+	]
+
+	const textColors = [
+		"#1C274C",
+		"#000000",
+		"#1BC469",
+		"#333333",
+		"#5F9CE3",
+		"#D0D0D0",
+		"#FC4B5D",
+		"#C5180D"
 	]
 
 	const musicCategories = [
@@ -312,6 +353,9 @@ export default function Page() {
 	const [selectedTextEditingOption, setSelectedTextEditingOption] = useState(
 		textEditingOptions[0]
 	)
+	const [selectedTextAlignment, setSelectedTextAlignment] = useState(
+		textAlignmentOptions[0]
+	)
 
 	return (
 		<View style={styles.container}>
@@ -340,6 +384,10 @@ export default function Page() {
 				textEditingOptions={textEditingOptions}
 				selectedTextEditingOption={selectedTextEditingOption}
 				setSelectedTextEditingOption={setSelectedTextEditingOption}
+				textAlignmentOptions={textAlignmentOptions}
+				selectedTextAlignment={selectedTextAlignment}
+				setSelectedTextAlignment={setSelectedTextAlignment}
+				textColors={textColors}
 			/>
 		</View>
 	)

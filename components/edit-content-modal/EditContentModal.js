@@ -78,7 +78,11 @@ export default function EditContentModal({
 	setSelectedSong,
 	textEditingOptions,
 	selectedTextEditingOption,
-	setSelectedTextEditingOption
+	setSelectedTextEditingOption,
+	textAlignmentOptions,
+	selectedTextAlignment,
+	setSelectedTextAlignment,
+	textColors
 }) {
 	const [fontsLoaded] = useFonts({
 		"Genos-Regular": require("../../assets/fonts/Genos/fonts/ttf/Genos-Regular.ttf")
@@ -124,6 +128,9 @@ export default function EditContentModal({
 										? 465
 										: selectedOption?.id === 2
 										? 400
+										: selectedOption?.id === 3 &&
+										  selectedTextEditingOption?.id === 7
+										? 350
 										: 300
 							}
 						]}
@@ -426,13 +433,15 @@ export default function EditContentModal({
 												<TouchableOpacity
 													style={styles.fontTab}
 												>
-													<Text
-														style={
-															styles.fontTabText
-														}
-													>
-														{item}
-													</Text>
+													{fontsLoaded && (
+														<Text
+															style={
+																styles.fontTabText
+															}
+														>
+															{item}
+														</Text>
+													)}
 												</TouchableOpacity>
 											)}
 											estimatedItemSize={200}
@@ -453,6 +462,141 @@ export default function EditContentModal({
 									</View>
 								) : selectedTextEditingOption?.id === 3 ? (
 									<View style={styles.spaceSection}>
+										<View style={styles.sliderBox}>
+											<Slider />
+										</View>
+									</View>
+								) : selectedTextEditingOption?.id === 4 ? (
+									<View style={styles.liningSection}>
+										{textAlignmentOptions?.map(
+											(item, key) => {
+												return (
+													<TouchableOpacity
+														style={[
+															styles.textAlignmentOptionCard,
+															{
+																backgroundColor:
+																	selectedTextAlignment?.id ===
+																	item?.id
+																		? "rgba(27, 196, 105, 0.5)"
+																		: "white"
+															}
+														]}
+														onPress={() => {
+															setSelectedTextAlignment(
+																item
+															)
+														}}
+														key={key}
+													>
+														<Image
+															source={item?.image}
+															style={
+																styles.textAlignmentIcon
+															}
+															contentFit="contain"
+														/>
+														{fontsLoaded && (
+															<Text
+																style={
+																	styles.textAlignmentTitleText
+																}
+															>
+																{item?.title}
+															</Text>
+														)}
+													</TouchableOpacity>
+												)
+											}
+										)}
+									</View>
+								) : selectedTextEditingOption?.id === 5 ? (
+									<View style={styles.spaceSection}>
+										<View style={styles.sliderBox}>
+											<Slider />
+										</View>
+									</View>
+								) : selectedTextEditingOption?.id === 6 ? (
+									<View style={styles.textColorSection}>
+										<View
+											style={styles.horizontalColorsRow}
+										>
+											{textColors?.map((item, key) => {
+												return (
+													<TouchableOpacity
+														style={[
+															styles.colorBox,
+															{
+																backgroundColor:
+																	item
+															}
+														]}
+														key={key}
+													/>
+												)
+											})}
+										</View>
+										<View
+											style={styles.horizontalColorsRow}
+										>
+											{textColors?.map((item, key) => {
+												return (
+													<TouchableOpacity
+														style={[
+															styles.colorBox,
+															{
+																backgroundColor:
+																	item
+															}
+														]}
+														key={key}
+													/>
+												)
+											})}
+										</View>
+									</View>
+								) : selectedTextEditingOption?.id === 7 ? (
+									<View
+										style={
+											styles.textBackgroundColorSection
+										}
+									>
+										<View
+											style={styles.horizontalColorsRow}
+										>
+											{textColors?.map((item, key) => {
+												return (
+													<TouchableOpacity
+														style={[
+															styles.colorBox,
+															{
+																backgroundColor:
+																	item
+															}
+														]}
+														key={key}
+													/>
+												)
+											})}
+										</View>
+										<View
+											style={styles.horizontalColorsRow}
+										>
+											{textColors?.map((item, key) => {
+												return (
+													<TouchableOpacity
+														style={[
+															styles.colorBox,
+															{
+																backgroundColor:
+																	item
+															}
+														]}
+														key={key}
+													/>
+												)
+											})}
+										</View>
 										<View style={styles.sliderBox}>
 											<Slider />
 										</View>
@@ -487,7 +631,7 @@ export default function EditContentModal({
 											return (
 												<EditOptionCard
 													image={item?.image}
-													title={item?.title}
+													title={item?.name}
 													color={
 														selectedTextEditingOption?.id ===
 														item?.id
@@ -552,7 +696,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#F0F0F0"
 	},
 	horizontalScrollArea: {
-		maxHeight: 65,
+		maxHeight: 70,
 		width: "100%",
 		marginTop: 15,
 		marginBottom: 25
@@ -601,7 +745,7 @@ const styles = StyleSheet.create({
 	actionButtonsContainer: {
 		flexDirection: "row",
 		alignItems: "center",
-		gap: 25
+		gap: 17.5
 	},
 	actionButton: {
 		height: 25,
@@ -699,7 +843,8 @@ const styles = StyleSheet.create({
 	musicCategoryTabText: {
 		fontSize: 15,
 		fontFamily: "Genos-Regular",
-		color: "#1C274C"
+		color: "#1C274C",
+		lineHeight: 17.5
 	},
 	songsScrollArea: {
 		flex: 1,
@@ -791,7 +936,8 @@ const styles = StyleSheet.create({
 	fontTabText: {
 		fontSize: 15,
 		color: "white",
-		fontFamily: "Genos-Regular"
+		fontFamily: "Genos-Regular",
+		lineHeight: 17.5
 	},
 	itemSeparator: {
 		height: 10
@@ -844,6 +990,56 @@ const styles = StyleSheet.create({
 	},
 	sliderValueText: {
 		fontSize: 7.5
+	},
+	liningSection: {
+		flex: 1,
+		width: "100%",
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-evenly"
+	},
+	textAlignmentOptionCard: {
+		height: 85,
+		width: "21.5%",
+		borderRadius: 7.5,
+		flexDirection: "column",
+		alignItems: "center",
+		justifyContent: "space-evenly"
+	},
+	textAlignmentIcon: {
+		height: 40,
+		width: 40
+	},
+	textAlignmentTitleText: {
+		fontSize: 13.5,
+		color: "#1C274C",
+		fontFamily: "Genos-Regular"
+	},
+	textColorSection: {
+		flex: 1,
+		width: "100%",
+		flexDirection: "column",
+		paddingTop: 25,
+		gap: 25
+	},
+	horizontalColorsRow: {
+		width: "100%",
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-around"
+	},
+	colorBox: {
+		height: 30,
+		width: 30,
+		borderRadius: 3.5,
+		opacity: 0.5
+	},
+	textBackgroundColorSection: {
+		flex: 1,
+		width: "100%",
+		flexDirection: "column",
+		alignItems: "center",
+		justifyContent: "space-evenly"
 	}
 })
 
@@ -860,5 +1056,9 @@ EditContentModal.propTypes = {
 	setSelectedSong: PropTypes.func.isRequired,
 	textEditingOptions: PropTypes.array.isRequired,
 	selectedTextEditingOption: PropTypes.object,
-	setSelectedTextEditingOption: PropTypes.func.isRequired
+	setSelectedTextEditingOption: PropTypes.func.isRequired,
+	textAlignmentOptions: PropTypes.array.isRequired,
+	selectedTextAlignment: PropTypes.object,
+	setSelectedTextAlignment: PropTypes.func.isRequired,
+	textColors: PropTypes.array.isRequired
 }

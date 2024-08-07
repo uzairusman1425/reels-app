@@ -21,8 +21,8 @@ export default function EditOptionCard({ image, title, color, onPress }) {
 
 const styles = StyleSheet.create({
 	editOptionCard: {
-		height: 65,
-		width: 65,
+		height: 70,
+		width: 70,
 		borderRadius: 10,
 		flexDirection: "column",
 		alignItems: "center",
