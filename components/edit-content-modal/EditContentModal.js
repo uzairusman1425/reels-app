@@ -82,7 +82,10 @@ export default function EditContentModal({
 	textAlignmentOptions,
 	selectedTextAlignment,
 	setSelectedTextAlignment,
-	textColors
+	textColors,
+	stickerCategories,
+	selectedStickerCategory,
+	setSelectedStickerCategory
 }) {
 	const [fontsLoaded] = useFonts({
 		"Genos-Regular": require("../../assets/fonts/Genos/fonts/ttf/Genos-Regular.ttf")
@@ -126,12 +129,11 @@ export default function EditContentModal({
 								height:
 									selectedOption?.id === 1
 										? 465
-										: selectedOption?.id === 2
-										? 400
-										: selectedOption?.id === 3 &&
-										  selectedTextEditingOption?.id === 7
-										? 350
-										: 300
+										: selectedOption?.id === 3
+										? selectedTextEditingOption?.id === 7
+											? 350
+											: 300
+										: 415
 							}
 						]}
 					>
@@ -226,20 +228,18 @@ export default function EditContentModal({
 								<View style={styles.musicSection}>
 									<ScrollView
 										horizontal
-										style={styles.musicTabsScrollArea}
+										style={styles.tabsScrollArea}
 										showsHorizontalScrollIndicator={false}
 									>
 										<View
-											style={
-												styles.musicTabsScrollContainer
-											}
+											style={styles.tabsScrollContainer}
 										>
 											{musicCategories?.map(
 												(item, key) => {
 													return (
 														<TouchableOpacity
 															style={[
-																styles.musicCategoryTab,
+																styles.tabContainer,
 																{
 																	backgroundColor:
 																		selectedMusicCategory?.id ===
@@ -258,14 +258,14 @@ export default function EditContentModal({
 															<Image
 																source={require("../../assets/icons/music-category.svg")}
 																style={
-																	styles.musicCategoryTabIcon
+																	styles.tabIcon
 																}
 																contentFit="contain"
 															/>
 															{fontsLoaded && (
 																<Text
 																	style={
-																		styles.musicCategoryTabText
+																		styles.tabText
 																	}
 																>
 																	{
@@ -419,16 +419,7 @@ export default function EditContentModal({
 								selectedTextEditingOption?.id === 1 ? (
 									<View style={styles.fontSection}>
 										<FlashList
-											data={[
-												"Fonts",
-												"Fonts",
-												"Fonts",
-												"Fonts",
-												"Fonts",
-												"Fonts",
-												"Fonts",
-												"Fonts"
-											]}
+											data={new Array(8).fill("Fonts")}
 											renderItem={({ item }) => (
 												<TouchableOpacity
 													style={styles.fontTab}
@@ -444,7 +435,7 @@ export default function EditContentModal({
 													)}
 												</TouchableOpacity>
 											)}
-											estimatedItemSize={200}
+											estimatedItemSize={50}
 											numColumns={4}
 											ItemSeparatorComponent={() => (
 												<View
@@ -602,6 +593,124 @@ export default function EditContentModal({
 										</View>
 									</View>
 								) : null
+							) : selectedOption?.id === 4 ? (
+								<View style={styles.effectSection}>
+									<FlashList
+										data={new Array(12)}
+										renderItem={() => (
+											<TouchableOpacity
+												style={styles.effectBox}
+											/>
+										)}
+										estimatedItemSize={50}
+										numColumns={4}
+										ItemSeparatorComponent={() => (
+											<View
+												style={
+													styles.itemSeparatorLarge
+												}
+											/>
+										)}
+										showsVerticalScrollIndicator={false}
+									/>
+								</View>
+							) : selectedOption?.id === 5 ? (
+								<View style={styles.stickerSection}>
+									<ScrollView
+										horizontal
+										style={styles.tabsScrollArea}
+										showsHorizontalScrollIndicator={false}
+									>
+										<View
+											style={styles.tabsScrollContainer}
+										>
+											{stickerCategories?.map(
+												(item, key) => {
+													return (
+														<TouchableOpacity
+															style={[
+																styles.tabContainer,
+																{
+																	backgroundColor:
+																		selectedStickerCategory?.id ===
+																		item?.id
+																			? "white"
+																			: "rgba(0, 0, 0, 0.04)"
+																}
+															]}
+															onPress={() => {
+																setSelectedStickerCategory(
+																	item
+																)
+															}}
+															key={key}
+														>
+															<Image
+																source={require("../../assets/icons/sticker-icon.svg")}
+																style={
+																	styles.tabIcon
+																}
+																contentFit="contain"
+															/>
+															{fontsLoaded && (
+																<Text
+																	style={
+																		styles.tabText
+																	}
+																>
+																	{
+																		item?.title
+																	}
+																</Text>
+															)}
+														</TouchableOpacity>
+													)
+												}
+											)}
+										</View>
+									</ScrollView>
+									<View style={styles.stickerListContainer}>
+										<FlashList
+											data={new Array(8)}
+											renderItem={() => (
+												<TouchableOpacity
+													style={styles.effectBox}
+												/>
+											)}
+											estimatedItemSize={50}
+											numColumns={4}
+											ItemSeparatorComponent={() => (
+												<View
+													style={
+														styles.itemSeparatorLarge
+													}
+												/>
+											)}
+											showsVerticalScrollIndicator={false}
+										/>
+									</View>
+								</View>
+							) : selectedOption?.id === 6 ? (
+								<View style={styles.backsideSection}>
+									<FlashList
+										data={new Array(12)}
+										renderItem={() => (
+											<TouchableOpacity
+												style={styles.effectBox}
+											/>
+										)}
+										estimatedItemSize={50}
+										numColumns={4}
+										ItemSeparatorComponent={() => (
+											<View
+												style={
+													styles.itemSeparatorLarge
+												}
+											/>
+										)}
+										showsVerticalScrollIndicator={false}
+									/>
+								</View>
 							) : null}
 						</View>
 						<ScrollView
@@ -818,17 +927,17 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		gap: 10
 	},
-	musicTabsScrollArea: {
+	tabsScrollArea: {
 		maxHeight: 25,
 		width: "100%",
 		marginVertical: 7.5
 	},
-	musicTabsScrollContainer: {
+	tabsScrollContainer: {
 		flexDirection: "row",
 		gap: 10,
 		paddingHorizontal: 15
 	},
-	musicCategoryTab: {
+	tabContainer: {
 		height: 25,
 		borderRadius: 3.5,
 		flexDirection: "row",
@@ -836,11 +945,11 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 7.5,
 		gap: 7.5
 	},
-	musicCategoryTabIcon: {
+	tabIcon: {
 		height: 16.5,
 		width: 16.5
 	},
-	musicCategoryTabText: {
+	tabText: {
 		fontSize: 15,
 		fontFamily: "Genos-Regular",
 		color: "#1C274C",
@@ -942,6 +1051,9 @@ const styles = StyleSheet.create({
 	itemSeparator: {
 		height: 10
 	},
+	itemSeparatorLarge: {
+		height: 15
+	},
 	spaceSection: {
 		flex: 1,
 		width: "100%",
@@ -1040,6 +1152,36 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "space-evenly"
+	},
+	effectSection: {
+		flex: 1,
+		width: "100%",
+		paddingTop: 15
+	},
+	effectBox: {
+		height: 70,
+		width: 70,
+		backgroundColor: "lightgrey",
+		borderRadius: 5,
+		marginHorizontal: "auto",
+		alignItems: "center",
+		justifyContent: "center"
+	},
+	stickerSection: {
+		flex: 1,
+		width: "100%",
+		flexDirection: "column",
+		alignItems: "center",
+		gap: 10
+	},
+	stickerListContainer: {
+		flex: 1,
+		width: "100%"
+	},
+	backsideSection: {
+		flex: 1,
+		width: "100%",
+		paddingTop: 15
 	}
 })
 
@@ -1060,5 +1202,8 @@ EditContentModal.propTypes = {
 	textAlignmentOptions: PropTypes.array.isRequired,
 	selectedTextAlignment: PropTypes.object,
 	setSelectedTextAlignment: PropTypes.func.isRequired,
-	textColors: PropTypes.array.isRequired
+	textColors: PropTypes.array.isRequired,
+	stickerCategories: PropTypes.array.isRequired,
+	selectedStickerCategory: PropTypes.object,
+	setSelectedStickerCategory: PropTypes.func.isRequired
 }

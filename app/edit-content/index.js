@@ -344,6 +344,33 @@ export default function Page() {
 		}
 	]
 
+	const stickerCategories = [
+		{
+			id: 1,
+			title: "Sticker"
+		},
+		{
+			id: 2,
+			title: "GIFs"
+		},
+		{
+			id: 3,
+			title: "Emojis"
+		},
+		{
+			id: 4,
+			title: "Label"
+		},
+		{
+			id: 5,
+			title: "Images"
+		},
+		{
+			id: 6,
+			title: "Icons"
+		}
+	]
+
 	const [openModal, setOpenModal] = useState(false)
 	const [selectedOption, setSelectedOption] = useState()
 	const [selectedMusicCategory, setSelectedMusicCategory] = useState(
@@ -355,6 +382,9 @@ export default function Page() {
 	)
 	const [selectedTextAlignment, setSelectedTextAlignment] = useState(
 		textAlignmentOptions[0]
+	)
+	const [selectedStickerCategory, setSelectedStickerCategory] = useState(
+		stickerCategories[0]
 	)
 
 	return (
@@ -388,6 +418,9 @@ export default function Page() {
 				selectedTextAlignment={selectedTextAlignment}
 				setSelectedTextAlignment={setSelectedTextAlignment}
 				textColors={textColors}
+				stickerCategories={stickerCategories}
+				selectedStickerCategory={selectedStickerCategory}
+				setSelectedStickerCategory={setSelectedStickerCategory}
 			/>
 		</View>
 	)
