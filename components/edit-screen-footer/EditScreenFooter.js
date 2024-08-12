@@ -1,4 +1,5 @@
 import { View, ScrollView, StyleSheet } from "react-native"
+import { usePathname } from "expo-router"
 import PropTypes from "prop-types"
 import EditOptionCard from "../edit-option-card/EditOptionCard"
 
@@ -7,14 +8,12 @@ export default function EditScreenFooter({
 	setOpenModal,
 	setSelectedOption
 }) {
+	const pathname = usePathname()
+
 	return (
 		<View style={styles.footerContainer}>
-			<ScrollView
-				horizontal
-				style={styles.horizontalScrollArea}
-				showsHorizontalScrollIndicator={false}
-			>
-				<View style={styles.scrollItemsContainer}>
+			{pathname === "/edit-ad" ? (
+				<View style={styles.horizontallyCenteredContainer}>
 					{options?.map((item, key) => {
 						return (
 							<EditOptionCard
@@ -30,7 +29,30 @@ export default function EditScreenFooter({
 						)
 					})}
 				</View>
-			</ScrollView>
+			) : (
+				<ScrollView
+					horizontal
+					style={styles.horizontalScrollArea}
+					showsHorizontalScrollIndicator={false}
+				>
+					<View style={styles.scrollItemsContainer}>
+						{options?.map((item, key) => {
+							return (
+								<EditOptionCard
+									image={item?.image}
+									title={item?.title}
+									color="gray"
+									onPress={() => {
+										setSelectedOption(item)
+										setOpenModal(true)
+									}}
+									key={key}
+								/>
+							)
+						})}
+					</View>
+				</ScrollView>
+			)}
 		</View>
 	)
 }
@@ -47,8 +69,17 @@ const styles = StyleSheet.create({
 	},
 	scrollItemsContainer: {
 		flexDirection: "row",
+		alignItems: "center",
 		gap: 15,
 		paddingHorizontal: 15
+	},
+	horizontallyCenteredContainer: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 10,
+		marginTop: 15,
+		marginBottom: 25,
+		marginHorizontal: "auto"
 	}
 })
 

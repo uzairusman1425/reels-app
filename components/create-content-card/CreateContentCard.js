@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 		color: "#1C274C"
 	},
 	createCardDescriptionText: {
-		fontSize: 11.5,
+		fontSize: 10.5,
 		fontFamily: "Genos-Light",
 		color: "#1C274C"
 	}

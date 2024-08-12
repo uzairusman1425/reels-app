@@ -1,11 +1,12 @@
 import { TouchableOpacity, View, StyleSheet } from "react-native"
-import { useRouter } from "expo-router"
+import { useRouter, usePathname } from "expo-router"
 import { LinearGradient } from "expo-linear-gradient"
 import { Image } from "expo-image"
 import BackButton from "../back-button/BackButton"
 
 export default function EditScreenHeader() {
 	const router = useRouter()
+	const pathname = usePathname()
 
 	return (
 		<LinearGradient
@@ -32,7 +33,11 @@ export default function EditScreenHeader() {
 			<TouchableOpacity
 				style={styles.headerActionButton}
 				onPress={() => {
-					router?.navigate("/preview")
+					if (pathname === "/edit-ad") {
+						router?.navigate("/preview-ad")
+					} else {
+						router?.navigate("/preview")
+					}
 				}}
 			>
 				<Image

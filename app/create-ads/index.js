@@ -77,7 +77,7 @@ export default function Page() {
 	}
 
 	return (
-		<ScrollView>
+		<ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.container}>
 				<GallerySectionHeader
 					image={require("../../assets/icons/image.svg")}
@@ -90,6 +90,7 @@ export default function Page() {
 								<ContentCard
 									image={item?.image}
 									isTrending={item?.isTrending}
+									href={"/edit-ad"}
 								/>
 							</View>
 						)
@@ -106,6 +107,7 @@ export default function Page() {
 								<ContentCard
 									image={item?.image}
 									isTrending={item?.isTrending}
+									href={"/edit-ad"}
 								/>
 							</View>
 						)
@@ -122,6 +124,7 @@ export default function Page() {
 								<ContentCard
 									image={item?.image}
 									isTrending={item?.isTrending}
+									href={"/edit-ad"}
 								/>
 							</View>
 						)
@@ -138,6 +141,7 @@ export default function Page() {
 								<ContentCard
 									image={item?.image}
 									isTrending={item?.isTrending}
+									href={"/edit-ad"}
 								/>
 							</View>
 						)
@@ -154,6 +158,7 @@ export default function Page() {
 								<ContentCard
 									image={item?.image}
 									isTrending={item?.isTrending}
+									href={"/edit-ad"}
 								/>
 							</View>
 						)
