@@ -88,7 +88,7 @@ export default function Page() {
 						<View style={styles.horizontalCardsWrapper}>
 							{cards?.slice(0, 4)?.map((item, key) => {
 								return (
-									<View
+									<TouchableOpacity
 										style={styles.cardContainer}
 										key={key}
 									>
@@ -112,14 +112,14 @@ export default function Page() {
 												style={styles.circularSeparator}
 											/>
 										</View>
-									</View>
+									</TouchableOpacity>
 								)
 							})}
 						</View>
 						<View style={styles.horizontalCardsWrapper}>
 							{cards?.slice(4, 8)?.map((item, key) => {
 								return (
-									<View
+									<TouchableOpacity
 										style={styles.cardContainer}
 										key={key}
 									>
@@ -143,7 +143,7 @@ export default function Page() {
 												style={styles.circularSeparator}
 											/>
 										</View>
-									</View>
+									</TouchableOpacity>
 								)
 							})}
 						</View>
