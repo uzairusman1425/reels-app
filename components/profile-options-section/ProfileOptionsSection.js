@@ -1,8 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { useRouter } from "expo-router"
 import { Image } from "expo-image"
 import { useFonts } from "expo-font"
 
 export default function ProfileOptionsSection() {
+	const router = useRouter()
+
 	const [fontsLoaded] = useFonts({
 		"Genos-Medium": require("../../assets/fonts/Genos/fonts/ttf/Genos-Medium.ttf")
 	})
@@ -10,7 +13,11 @@ export default function ProfileOptionsSection() {
 	return (
 		<View style={styles.profileOptionsSection}>
 			<View style={styles.profileInfoContainer}>
-				<TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						router?.navigate("/filters")
+					}}
+				>
 					<Image
 						source={require("../../assets/images/profile2.png")}
 						style={styles.profileImage}

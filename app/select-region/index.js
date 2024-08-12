@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
 	},
 	selectRegionCard: {
 		width: "95%",
-		height: 500,
+		height: 475,
 		borderRadius: 10,
 		backgroundColor: "white",
 		elevation: 5,
