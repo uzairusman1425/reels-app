@@ -7,12 +7,15 @@ import {
 	StyleSheet,
 	TouchableOpacity
 } from "react-native"
+import { useRouter } from "expo-router"
 import { Image } from "expo-image"
 import { useFonts } from "expo-font"
 import Fontisto from "@expo/vector-icons/Fontisto"
 import PreviewScreenHeader from "../../components/preview-screen-header/PreviewScreenHeader"
 
 export default function Page() {
+	const router = useRouter()
+
 	const [fontsLoaded] = useFonts({
 		"Genos-Medium": require("../../assets/fonts/Genos/fonts/ttf/Genos-Medium.ttf"),
 		"Genos-Light": require("../../assets/fonts/Genos/fonts/ttf/Genos-Light.ttf"),
@@ -496,7 +499,12 @@ export default function Page() {
 							)}
 						</View>
 					</View>
-					<TouchableOpacity style={styles.publishNowButton}>
+					<TouchableOpacity
+						style={styles.publishNowButton}
+						onPress={() => {
+							router?.navigate("/thank-you")
+						}}
+					>
 						{fontsLoaded && (
 							<Text style={styles.publishNowButtonText}>
 								Publish Now
